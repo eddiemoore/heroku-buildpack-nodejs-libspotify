@@ -8,13 +8,6 @@ set -e
 # set -x
 
 
-# Install libspotify
-curl -O https://developer.spotify.com/download/libspotify/libspotify-12.1.51-Linux-x86_64-release.tar.gz
-tar xzf libspotify-*.tar.gz
-cd libspotify-12.1.51-Linux-x86_64-release
-make install prefix=./spotify
-cd ..
-
 # clean up leaking environment
 unset GIT_DIR
 
@@ -184,3 +177,21 @@ echo "Dependencies installed" | indent
 echo "-----> Building runtime environment"
 mkdir -p $BUILD_DIR/.profile.d
 echo "export PATH=\"\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\"" > $BUILD_DIR/.profile.d/nodejs.sh
+
+# Usage: $ set-default-env key value
+function set-default-env (){
+  echo "export $1=\${$1:-$2}" >> $PROFILE_PATH
+}
+
+echo "-----> Install libspotify"
+git clone https://github.com/khamaileon/libspotify.git
+cd libspotify
+mkdir -p $BUILD_DIR/.heroku/libspotify
+make install prefix=$BUILD_DIR/.heroku/libspotify
+cd ..
+rm -r libspotify
+
+set-default-env LIBRARY_PATH /app/.heroku/vendor/lib:/app/.heroku/libspotify/lib
+set-default-env LD_LIBRARY_PATH /app/.heroku/vendor/lib:/app/.heroku/libspotify/lib
+set-default-env PKG_CONFIG_PATH /app/.heroku/libspotify/lib/pkgconfig
+set-default-env CPATH /app/.heroku/libspotify/include
