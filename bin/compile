@@ -171,7 +171,7 @@ export CPPPATH="$INCLUDE_PATH"
 
 # Usage: $ set-default-env key value
 function set-default-env (){
-  echo "export $1=\${$1:-$2}" >> $PROFILE_PATH
+  export $1=$1:$2
 }
 
 echo "-----> Install libspotify"
