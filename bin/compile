@@ -168,15 +168,6 @@ INCLUDE_PATH="$VENDORED_NODE/include"
 export CPATH="$INCLUDE_PATH"
 export CPPPATH="$INCLUDE_PATH"
 
-# install dependencies with npm
-echo "-----> Installing dependencies with npm"
-run_npm "install --production"
-run_npm "rebuild"
-echo "Dependencies installed" | indent
-
-echo "-----> Building runtime environment"
-mkdir -p $BUILD_DIR/.profile.d
-echo "export PATH=\"\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\"" > $BUILD_DIR/.profile.d/nodejs.sh
 
 # Usage: $ set-default-env key value
 function set-default-env (){
@@ -195,3 +186,13 @@ set-default-env LIBRARY_PATH /app/.heroku/vendor/lib:/app/.heroku/libspotify/lib
 set-default-env LD_LIBRARY_PATH /app/.heroku/vendor/lib:/app/.heroku/libspotify/lib
 set-default-env PKG_CONFIG_PATH /app/.heroku/libspotify/lib/pkgconfig
 set-default-env CPATH /app/.heroku/libspotify/include
+
+# install dependencies with npm
+echo "-----> Installing dependencies with npm"
+run_npm "install --production"
+run_npm "rebuild"
+echo "Dependencies installed" | indent
+
+echo "-----> Building runtime environment"
+mkdir -p $BUILD_DIR/.profile.d
+echo "export PATH=\"\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\"" > $BUILD_DIR/.profile.d/nodejs.sh
