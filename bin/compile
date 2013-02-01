@@ -182,10 +182,10 @@ make install prefix=$BUILD_DIR/.heroku/libspotify
 cd ..
 rm -r libspotify
 
-set-default-env LIBRARY_PATH /app/.heroku/vendor/lib:/app/.heroku/libspotify/lib
-set-default-env LD_LIBRARY_PATH /app/.heroku/vendor/lib:/app/.heroku/libspotify/lib
-set-default-env PKG_CONFIG_PATH /app/.heroku/libspotify/lib/pkgconfig
-set-default-env CPATH /app/.heroku/libspotify/include
+export LIBRARY_PATH=$LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/libspotify/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/libspotify/lib
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_DIR/.heroku/libspotify/lib/pkgconfig
+export CPATH=$CPATH:$BUILD_DIR/.heroku/libspotify/include
 
 # install dependencies with npm
 echo "-----> Installing dependencies with npm"
