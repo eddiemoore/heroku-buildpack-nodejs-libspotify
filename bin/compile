@@ -177,15 +177,26 @@ function set-default-env (){
 echo "-----> Install libspotify"
 git clone https://github.com/khamaileon/libspotify.git
 cd libspotify
-mkdir -p $BUILD_DIR/.heroku/libspotify
-make install prefix=$BUILD_DIR/.heroku/libspotify
+mkdir -p $BUILD_DIR/.heroku/vendor
+make install prefix=$BUILD_DIR/.heroku/vendor
 cd ..
 rm -r libspotify
 
-export LIBRARY_PATH=$LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/libspotify/lib
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/libspotify/lib
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_DIR/.heroku/libspotify/lib/pkgconfig
-export CPATH=$CPATH:$BUILD_DIR/.heroku/libspotify/include
+echo "-----> Install lame"
+wget http://iweb.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
+tar -xvf lame-3.99.5.tar.gz
+cd lame-3.99.5
+./configure --prefix=$BUILD_DIR/.heroku/vendor/lib
+make
+make install
+cd ..
+rm -r lame-3.99.5
+
+echo "-----> Setting ENV variables"
+export LIBRARY_PATH=$LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_DIR/.heroku/vendor/lib/pkgconfig
+export CPATH=$CPATH:$BUILD_DIR/.heroku/vendor/include
 
 # install dependencies with npm
 echo "-----> Installing dependencies with npm"
