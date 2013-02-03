@@ -174,36 +174,16 @@ function set-default-env (){
   export $1=$1:$2
 }
 
+echo `pwd`
+
 echo "-----> Install libspotify"
-rm -rf libspotify
-git clone https://github.com/khamaileon/libspotify.git
-cd libspotify
-mkdir -p $BUILD_DIR/.heroku/vendor
-make install prefix=$BUILD_DIR/.heroku/vendor
-cd ..
-rm -rf libspotify
+tar -xvf ../vulcan/libspotify.tar.gz -C $BUILD_DIR/.heroku/vendor
 
 echo "-----> Install lame"
-rm -rf lame-3.99.5
-curl -O http://iweb.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
-tar -xvf lame-3.99.5.tar.gz
-cd lame-3.99.5
-./configure --prefix=$BUILD_DIR/.heroku/vendor/lib
-make
-make install
-cd ..
-rm -rf lame-3.99.5
+tar -xvf ../vulcan/lame.tar.gz -C $BUILD_DIR/.heroku/vendor
 
 echo "-----> Install sox"
-rm -rf sox-14.4.1
-curl -O http://superb-dca3.dl.sourceforge.net/project/sox/sox/14.4.1/sox-14.4.1.tar.gz
-tar -xvf sox-14.4.1.tar.gz
-cd sox-14.4.1
-./configure --prefix=$BUILD_DIR/.heroku/vendor/lib
-make -s
-make install
-cd ..
-rm -rf sox-14.4.1
+tar -xvf ../vulcan/sox.tar.gz -C $BUILD_DIR/.heroku/vendor
 
 echo "-----> Setting ENV variables"
 export LIBRARY_PATH=$LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib
