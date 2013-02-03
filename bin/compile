@@ -183,7 +183,7 @@ cd ..
 rm -r libspotify
 
 echo "-----> Install lame"
-wget http://iweb.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
+curl -O http://iweb.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
 tar -xvf lame-3.99.5.tar.gz
 cd lame-3.99.5
 ./configure --prefix=$BUILD_DIR/.heroku/vendor/lib
