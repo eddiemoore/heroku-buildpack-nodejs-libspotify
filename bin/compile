@@ -192,7 +192,6 @@ if [ ! -d lame-3.99.5 ]; then
   make
   make install
   cd ..
-  rm -r lame-3.99.5
 fi
 
 echo "-----> Install sox"
