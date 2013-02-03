@@ -174,7 +174,7 @@ function set-default-env (){
   export $1=$1:$2
 }
 
-echo `pwd`
+echo `dirname $0`
 
 echo "-----> Install libspotify"
 tar -xvf ../vulcan/libspotify.tar.gz -C $BUILD_DIR/.heroku/vendor
