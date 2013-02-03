@@ -175,32 +175,36 @@ function set-default-env (){
 }
 
 echo "-----> Install libspotify"
-git clone https://github.com/khamaileon/libspotify.git
-cd libspotify
-mkdir -p $BUILD_DIR/.heroku/vendor
-make install prefix=$BUILD_DIR/.heroku/vendor
-cd ..
-rm -r libspotify
+if [ ! -d libspotify ]; then
+  git clone https://github.com/khamaileon/libspotify.git
+  cd libspotify
+  mkdir -p $BUILD_DIR/.heroku/vendor
+  make install prefix=$BUILD_DIR/.heroku/vendor
+  cd ..
+fi
 
 echo "-----> Install lame"
-curl -O http://iweb.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
-tar -xvf lame-3.99.5.tar.gz
-cd lame-3.99.5
-./configure --prefix=$BUILD_DIR/.heroku/vendor/lib
-make
-make install
-cd ..
-rm -r lame-3.99.5
+if [ ! -d lame-3.99.5 ]; then
+  curl -O http://iweb.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
+  tar -xvf lame-3.99.5.tar.gz
+  cd lame-3.99.5
+  ./configure --prefix=$BUILD_DIR/.heroku/vendor/lib
+  make
+  make install
+  cd ..
+  rm -r lame-3.99.5
+fi
 
 echo "-----> Install sox"
-curl -O http://superb-dca3.dl.sourceforge.net/project/sox/sox/14.4.1/sox-14.4.1.tar.gz
-tar -xvf sox-14.4.1.tar.gz
-cd sox-14.4.1
-./configure --prefix=$BUILD_DIR/.heroku/vendor/lib
-make -s
-make install
-cd ..
-rm -r sox-14.4.1
+if [ ! -d sox-14.4.1 ]; then
+  curl -O http://superb-dca3.dl.sourceforge.net/project/sox/sox/14.4.1/sox-14.4.1.tar.gz
+  tar -xvf sox-14.4.1.tar.gz
+  cd sox-14.4.1
+  ./configure --prefix=$BUILD_DIR/.heroku/vendor/lib
+  make -s
+  make install
+  cd ..
+fi
 
 echo "-----> Setting ENV variables"
 export LIBRARY_PATH=$LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib
