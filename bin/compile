@@ -192,6 +192,16 @@ make install
 cd ..
 rm -r lame-3.99.5
 
+echo "-----> Install sox"
+curl -O http://superb-dca3.dl.sourceforge.net/project/sox/sox/14.4.1/sox-14.4.1.tar.gz
+tar -xvf sox-14.4.1.tar.gz
+cd sox-14.4.1
+./configure --prefix=$BUILD_DIR/.heroku/vendor/lib
+make -s
+make install
+cd ..
+rm -r sox-14.4.1
+
 echo "-----> Setting ENV variables"
 export LIBRARY_PATH=$LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib
