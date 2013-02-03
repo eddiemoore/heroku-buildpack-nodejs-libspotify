@@ -174,16 +174,14 @@ function set-default-env (){
   export $1=$1:$2
 }
 
-echo `dirname $0`
-
 echo "-----> Install libspotify"
-tar -xvf ../vulcan/libspotify.tar.gz -C $BUILD_DIR/.heroku/vendor
+tar -xvf `dirname $0`/vulcan/libspotify.tar.gz -C $BUILD_DIR/.heroku/vendor
 
 echo "-----> Install lame"
-tar -xvf ../vulcan/lame.tar.gz -C $BUILD_DIR/.heroku/vendor
+tar -xvf `dirname $0`/vulcan/lame.tar.gz -C $BUILD_DIR/.heroku/vendor
 
 echo "-----> Install sox"
-tar -xvf ../vulcan/sox.tar.gz -C $BUILD_DIR/.heroku/vendor
+tar -xvf `dirname $0`/vulcan/sox.tar.gz -C $BUILD_DIR/.heroku/vendor
 
 echo "-----> Setting ENV variables"
 export LIBRARY_PATH=$LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib
