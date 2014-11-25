@@ -190,6 +190,7 @@ export LIBRARY_PATH=$LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_DIR/.heroku/vendor/lib/pkgconfig
 export CPATH=$CPATH:$BUILD_DIR/.heroku/vendor/include
+export PATH=$PATH:$LD_LIBRARY_PATH
 
 # install dependencies with npm
 echo "-----> Installing dependencies with npm"
