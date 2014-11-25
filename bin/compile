@@ -186,7 +186,7 @@ echo "-----> Install sox"
 tar -xvf `dirname $0`/../vulcan/sox.tar.gz -C $BUILD_DIR/.heroku/vendor
 
 echo "-----> Setting ENV variables"
-ln -s $BUILD_DIR/.heroku/vendor/lib/libspotify.so /usr/local/lib/libspotify.so
+ln -s $BUILD_DIR/.heroku/vendor/lib/libspotify.so /usr/lib/libspotify.so
 export LIBRARY_PATH=$LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/.heroku/vendor/lib
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_DIR/.heroku/vendor/lib/pkgconfig
